@@ -1,0 +1,25 @@
+Autor : Kamil Kostyszyn
+Język : Java
+
+Aby skompilować program należy wpisać
+    javac main/Main.java
+Aby uruchomić program należy wpisać
+    java main.Main
+Aby program czytał dane z pliku a wynik działania zapisywał do pliku
+    java main.Main 1.in 1.out
+Program czyta również ze standardowego wejścia i wypisuje na standardowe wyjście wynik działania o ile nie otrzyma parametrów.
+
+Założyłem że kopanie kabla z punktu A do B jest tak samo kosztowne i długie jak z punktu B do A - krawędzie są nieskierowane.
+
+Przykładowy format wejścia : 
+
+5 7
+3 4 17,38 43,74
+1 4 37,91 66,35
+1 2 39,21 35,46
+3 1 82,8 33,75
+4 2 11,44 39,99
+3 2 8,65 34,43
+4 5 55,35 28,03
+
+Pierwsza linia zawiera dwie liczby całkowite v e, będące odpowiednio liczbą wierzchołku grafu oraz liczbą krawędzi w grafie. Pozostałe e linii zawiera vi vj l p, oznaczające kolejno jeden z końców krawędzi , drugi koniec krawędzi, długość krawędzi oraz koszt wykopania 1 jednostki długości. Długość  i koszt są liczbami rzeczywistymi typu double(liczba jest zapisana w polskim systemie zapisu liczb przecinkowych)
