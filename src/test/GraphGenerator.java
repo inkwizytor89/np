@@ -8,10 +8,16 @@ import structure.graph.Vertex;
 
 public abstract class GraphGenerator {
 
+    /**
+     * Wektor odpowiedizalny za tworzenie krawędzie w grafie. Interpretacja
+     * krawędzi na kolejnych pozycjach 01 02 03 ... 12 13 ...
+     */
     protected BitVector edgesBitVector = new BitVector();
+    /**
+     * Liczba wierzchołków na ilu ma być wygenerowany graf
+     */
     protected Integer vertexCount = 1;
 
-    //void buildGenerator(Integer size);
     protected void buildGenerator(Integer size) {
         this.edgesBitVector = new BitVector(size * (size - 1) / 2);
         vertexCount = size;
@@ -44,11 +50,6 @@ public abstract class GraphGenerator {
                 }
             }
         }
-//        for (int i = 0; i < edgesBitVector.size(); i++) {
-//            if (edgesBitVector.getPositionValue(i)) {
-//                edgesList.add(createBinaryEdge(i, vertices));
-//            }
-//        }
         Edge[] edges = edgesList.toArray(new Edge[edgesList.size()]);
         return new Graph(vertices, edges);
     }
