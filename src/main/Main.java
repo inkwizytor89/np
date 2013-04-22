@@ -5,14 +5,16 @@ import naive.EdgesVertexCover;
 import naive.NaiveVertexCover;
 import structure.graph.Graph;
 import test.GraphGenerator;
+import test.LeaktGraphGenerator;
+import test.NaiveGraphGenerator;
 
 public class Main {
 
     public static void main(String[] args) {
-        GraphGenerator g = new GraphGenerator();
+        GraphGenerator g = new LeaktGraphGenerator();
         do {
             
-                System.out.println("Vertex: "+g.getVertexCount());
+                System.out.println(" Vertex: "+g.getVertexCount());
             do {
                 Graph graph = g.buildGraph();
                 Integer mentor = NaiveVertexCover.coverCound(graph.copedGraphEdges());
@@ -24,7 +26,7 @@ public class Main {
                 if (mentor > degree) {
                     throw new RuntimeException("solution degree better than the best "+degree+"|"+mentor+" "+g.toString());
                 }
-                if (mentor < degree-1) {
+                if (mentor < degree) {
                     System.out.println(edge+"|"+degree+" "+DegreeVertexCover.show()+"|"+mentor+" "+NaiveVertexCover.show()+" -> "+g.toString());
                 }
             } while (g.nextEdgeSystem());

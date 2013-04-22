@@ -1,17 +1,21 @@
 package test;
 
-import static java.lang.Math.floor;
-import static java.lang.Math.sqrt;
 import java.util.LinkedList;
 import structure.bitvector.BitVector;
 import structure.graph.Edge;
 import structure.graph.Graph;
 import structure.graph.Vertex;
 
-public class GraphGenerator {
+public abstract class GraphGenerator {
 
-    private BitVector edgesBitVector;
-    private Integer vertexCount;
+    protected BitVector edgesBitVector = new BitVector();
+    protected Integer vertexCount = 1;
+
+    //void buildGenerator(Integer size);
+    protected void buildGenerator(Integer size) {
+        this.edgesBitVector = new BitVector(size * (size - 1) / 2);
+        vertexCount = size;
+    }
 
     public GraphGenerator() {
         buildGenerator(1);
@@ -19,18 +23,6 @@ public class GraphGenerator {
 
     public GraphGenerator(Integer size) {
         buildGenerator(size);
-    }
-
-    
-//    public GraphGenerator(BitVector bitVector) {
-//        this.edgesBitVector = bitVector;
-//        Double temp = floor((1 + sqrt(1 + 4 * edgesBitVector.size())) / 2);
-//        vertexCount = temp.intValue();
-//    }
-    
-    private void buildGenerator(Integer size) {
-        this.edgesBitVector = new BitVector(size * (size-1)/2);
-        vertexCount = size;
     }
 
     public Integer getVertexCount() {
@@ -45,10 +37,11 @@ public class GraphGenerator {
 
         LinkedList<Edge> edgesList = new LinkedList<>();
         Integer bitVectorCount = 0;
-        for (int i=0; i<vertexCount-1; i++) {
-            for(int j=i+1;j<vertexCount;j++) {
-                if (edgesBitVector.getPositionValue(bitVectorCount++))
-                edgesList.add(new Edge(vertices[i], vertices[j]));
+        for (int i = 0; i < vertexCount - 1; i++) {
+            for (int j = i + 1; j < vertexCount; j++) {
+                if (edgesBitVector.getPositionValue(bitVectorCount++)) {
+                    edgesList.add(new Edge(vertices[i], vertices[j]));
+                }
             }
         }
 //        for (int i = 0; i < edgesBitVector.size(); i++) {
@@ -60,20 +53,12 @@ public class GraphGenerator {
         return new Graph(vertices, edges);
     }
 
-    public Boolean nextEdgeSystem() {
-        return edgesBitVector.next();
+    public abstract Boolean nextEdgeSystem();
 
-    }
-
-    public Boolean addVertex() {
-        //this.edgesBitVector = new BitVector(edgesBitVector.size() + 1);
-        //System.out.println(vertexCount+1);
-        buildGenerator(vertexCount+1);
-        return true;
-    }
+    public abstract Boolean addVertex();
 
     @Override
     public String toString() {
-        return "("+vertexCount+") "+edgesBitVector.toString();
+        return "(" + vertexCount + ") " + edgesBitVector.toString() + "[" + edgesBitVector.getBitSum() + "]";
     }
 }

@@ -22,6 +22,16 @@ public class BitVector {
         Double tempValue = floor(log(value) / log(2));
         buildVector(tempValue.intValue());
     }
+    
+    public Integer getBitSum() {
+        Integer sum = 0;
+        for (Boolean b : vector) {
+            if(b) {
+                sum++;
+            }
+        }
+        return sum;
+    }
 
     private void buildVector(Integer size) {
         vector = new Boolean[size];
@@ -48,23 +58,46 @@ public class BitVector {
     }
 
     public Boolean isLast() {
-        return value >= maxValue;
+        //return value >= maxValue;
+        for(Boolean b : vector) {
+            if (!b) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Boolean next() {
+        //System.out.println("body "+toString()+" "+isLast());
         if (isLast()) {
             return false;
         } //else {System.out.println("wektoor "+value+" max "+maxValue);}
         Integer position = vector.length - 1;
-//        System.out.println("position "+position);
-//        System.out.println("size "+vector.length);
+
         while (vector[position]) {
             vector[position] = false;
             position--;
+                    //System.out.println("position "+position+" on "+toString());
         }
         vector[position] = true;
         value++;
         return true;
+    }
+    
+    public void setLeftFull(Integer area) {
+        value = new Long(1);
+        for (int i=0;i<area;i++) {
+            vector[i] = true;
+            value*=2;
+        }
+        
+    }
+    
+    public void setRightFull(Integer area) {
+        for (int i=0;i<area;i++) {
+            vector[vector.length-i-1] = true;
+        }
+        
     }
 
     @Override
@@ -77,7 +110,7 @@ public class BitVector {
                 result += "0";
             }
         }
-        return result;
+        return result+":"+value;
     }
 
 }
